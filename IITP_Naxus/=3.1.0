@@ -1,0 +1,2 @@
+Requirement already satisfied: Werkzeug in /usr/local/python/3.12.1/lib/python3.12/site-packages (2.2.3)
+Requirement already satisfied: MarkupSafe>=2.1.1 in /home/codespace/.local/lib/python3.12/site-packages (from Werkzeug) (3.0.2)

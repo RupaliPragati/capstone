@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IITP Nexus</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🛰️ Welcome to IITP Nexus</h1>
+
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will appear here -->
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="message-input" placeholder="Type your message here..." autocomplete="off">
+            <select id="language-select">
+                <option value="English" selected>English</option>
+                <option value="hi">Hindi</option>
+                <option value="bn">Bengali</option>
+                <option value="ta">Tamil</option>
+                <option value="mr">Marathi</option>
+                <option value="gu">Gujarati</option>
+                <!-- You can add more languages -->
+            </select>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+
+        <hr>
+
+        <div class="complaint-area">
+            <textarea id="complaint-input" placeholder="Enter your complaint..."></textarea>
+            <button onclick="sendComplaint()">Submit Complaint</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById("message-input").value;
+            const language = document.getElementById("language-select").value;
+
+            if (!message.trim()) {
+                alert("Please type a message.");
+                return;
+            }
+
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message, language })
+            });
+
+            const data = await response.json();
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<div class="user-msg"><b>You:</b> ${message}</div>`;
+            chatBox.innerHTML += `<div class="bot-msg"><b>Nexus:</b> ${data.response}</div>`;
+            document.getElementById("message-input").value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function sendComplaint() {
+            const complaint = document.getElementById("complaint-input").value;
+
+            if (!complaint.trim()) {
+                alert("Please enter a complaint.");
+                return;
+            }
+
+            const response = await fetch('/complaint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ complaint })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            document.getElementById("complaint-input").value = "";
+        }
+    </script>
+</body>
+</html>
