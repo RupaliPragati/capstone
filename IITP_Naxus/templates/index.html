@@ -1,86 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>IITP Nexus</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <title>IITP Nexus</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🛰️ Welcome to IITP Nexus</h1>
+<div class="container">
+  <h1>🛰️ Welcome to IITP Nexus</h1>
 
-        <div class="chat-box" id="chat-box">
-            <!-- Chat messages will appear here -->
-        </div>
+  <div id="chat-box" class="chat-box"></div>
 
-        <div class="input-area">
-            <input type="text" id="message-input" placeholder="Type your message here..." autocomplete="off">
-            <select id="language-select">
-                <option value="English" selected>English</option>
-                <option value="hi">Hindi</option>
-                <option value="bn">Bengali</option>
-                <option value="ta">Tamil</option>
-                <option value="mr">Marathi</option>
-                <option value="gu">Gujarati</option>
-                <!-- You can add more languages -->
-            </select>
-            <button onclick="sendMessage()">Send</button>
-        </div>
+  <div class="input-area">
+    <input id="message-input" type="text" placeholder="Type or record your question…">
+    <select id="language-select">
+      <option value="English" selected>English</option>
+      <option value="hi">Hindi</option><option value="bn">Bengali</option>
+      <option value="ta">Tamil</option><option value="mr">Marathi</option>
+      <option value="gu">Gujarati</option>
+    </select>
+    <button onclick="sendTyped()">Send</button>
+    <button id="mic-btn" class="mic-btn" onclick="toggleRec()">🎤</button>
+  </div>
 
-        <hr>
+  <hr>
+  <div class="complaint-area">
+    <textarea id="complaint-input" placeholder="Enter your complaint…"></textarea>
+    <button onclick="sendComplaint()">Submit Complaint</button>
+  </div>
 
-        <div class="complaint-area">
-            <textarea id="complaint-input" placeholder="Enter your complaint..."></textarea>
-            <button onclick="sendComplaint()">Submit Complaint</button>
-        </div>
-    </div>
+  <audio id="bot-audio"></audio>
+</div>
 
-    <script>
-        async function sendMessage() {
-            const message = document.getElementById("message-input").value;
-            const language = document.getElementById("language-select").value;
+<script>
+const chatBox = document.getElementById("chat-box");
+const botAudio= document.getElementById("bot-audio");
 
-            if (!message.trim()) {
-                alert("Please type a message.");
-                return;
-            }
+const escHTML = s=>s.replace(/</g,"&lt;");
+const escAttr = s=>s.replace(/'/g,"\\'");
 
-            const response = await fetch('/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message, language })
-            });
+function addUser(m){ chatBox.insertAdjacentHTML("beforeend",`<div class="user-msg"><b>You:</b> ${escHTML(m)}</div>`)}
+function addBot(m){
+  chatBox.insertAdjacentHTML("beforeend",
+   `<div class="bot-msg"><b>Nexus:</b> ${escHTML(m)}
+      <span class="speak" onclick="speak('${escAttr(m)}')">🔊</span>
+    </div>`);
+  chatBox.scrollTop=chatBox.scrollHeight;
+}
 
-            const data = await response.json();
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div class="user-msg"><b>You:</b> ${message}</div>`;
-            chatBox.innerHTML += `<div class="bot-msg"><b>Nexus:</b> ${data.response}</div>`;
-            document.getElementById("message-input").value = "";
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+async function sendTyped(){
+  const inp=document.getElementById("message-input");
+  const text=inp.value.trim(); if(!text) return;
+  const lang=document.getElementById("language-select").value;
+  addUser(text); inp.value="";
+  const res=await fetch("/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message:text,language:lang})}).then(r=>r.json());
+  addBot(res.response);
+}
 
-        async function sendComplaint() {
-            const complaint = document.getElementById("complaint-input").value;
+/* voice recording */
+let rec, chunks=[], recording=false;
+async function toggleRec(){
+  const btn=document.getElementById("mic-btn");
+  if(!recording){
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    rec=new MediaRecorder(stream,{mimeType:"audio/webm"}); rec.start(); chunks=[];
+    rec.ondataavailable=e=>chunks.push(e.data);
+    btn.classList.add("recording"); btn.textContent="⏹️"; recording=true;
+  }else{
+    rec.stop(); rec.onstop=async ()=>{
+      btn.classList.remove("recording"); btn.textContent="🎤"; recording=false;
+      const blob=new Blob(chunks,{type:"audio/webm"});
+      const fd=new FormData(); fd.append("audio",blob,"speech.webm");
+      const {text}=await fetch("/stt",{method:"POST",body:fd}).then(r=>r.json());
+      document.getElementById("message-input").value=text;
+    };
+  }
+}
 
-            if (!complaint.trim()) {
-                alert("Please enter a complaint.");
-                return;
-            }
+/* TTS player */
+async function speak(text){
+  try{
+    const j=await fetch("/tts",{method:"POST",headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({text})}).then(r=>r.json());
+    if(j.audio_url){
+      console.log("playing",j.audio_url);
+      botAudio.src=j.audio_url; botAudio.play();
+    }else{ alert("TTS error"); }
+  }catch(e){ console.error(e); alert("TTS failed"); }
+}
 
-            const response = await fetch('/complaint', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ complaint })
-            });
-
-            const data = await response.json();
-            alert(data.message);
-            document.getElementById("complaint-input").value = "";
-        }
-    </script>
+/* complaint */
+async function sendComplaint(){
+  const t=document.getElementById("complaint-input").value.trim();
+  if(!t) return alert("Enter complaint");
+  const {message}=await fetch("/complaint",{method:"POST",headers:{"Content-Type":"application/json"},
+         body:JSON.stringify({complaint:t})}).then(r=>r.json());
+  alert(message); document.getElementById("complaint-input").value="";
+}
+</script>
 </body>
 </html>

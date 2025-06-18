@@ -54,6 +54,16 @@ button:hover {
   background-color: #0056b3;
 }
 
+.mic-btn.recording {
+  background-color: #dc3545;
+}
+
 .user-msg, .bot-msg {
   margin: 10px 0;
+}
+
+.speak {
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
 }
