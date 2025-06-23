@@ -1,0 +1,7 @@
+Flask
+openai-whisper
+gtts
+googletrans==4.0.0-rc1
+ffmpeg-python
+requests
+python-dotenv
