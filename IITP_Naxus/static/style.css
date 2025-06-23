@@ -1,69 +1,161 @@
-body {
-  font-family: Jali Latin Variable, sans-serif;
-  background-color: #f0f2f5;
+/* Core layout setup */
+html, body {
   margin: 0;
-  padding: 20px;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
-  background: #fff;
+#pageWrapper {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: background 1s ease-in-out, background-image 1s ease-in-out;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+/* Dynamic background sections */
+.welcome-bg {
+  background-image: url('https://images.shiksha.com/mediadata/images/articles/1734514712phpKZ3g5h.jpeg');
+}
+.chat-bg {
+  background-image: url('https://www.nextiva.com/cdn-cgi/image/width=1280,format=auto/blog/wp-content/uploads/sites/10/2024/11/Chatbot-Call-Center.webp');
+}
+.complaint-bg {
+  background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20221209/pngtree-law-concept-complaint-on-chalkboard-background-wall-learn-complaint-photo-image_20825656.jpg');
+}
+
+/* Glass container */
+.transprint {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
   padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-h1 {
+  max-width: 90%;
+  width: 800px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  position: relative;
+  margin: 20px auto;
   text-align: center;
-  color: #333;
+  animation: fadeIn 0.6s ease-in-out;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-.chat-box {
-  height: 300px;
-  overflow-y: scroll;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 20px;
-  background: #fafafa;
-  border-radius: 8px;
+/* Floating avatar bot */
+.chat-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  animation: float 2s ease-in-out infinite;
 }
 
-.input-area, .complaint-area {
-  margin-bottom: 20px;
+/* Chat area */
+.chatbox {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.888);
+  border-radius: 10px;
+  padding: 20px;
+  height: 100px;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  text-align: left;
+  backdrop-filter: blur(6px);
+  
 }
 
-input[type="text"], textarea, select {
-  width: 70%;
-  padding: 10px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
+/* Buttons */
 button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  border: none;
+  padding: 12px 24px;
+  background: #0077b6;
   color: white;
-  border-radius: 8px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  margin: 10px 6px 0 6px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
-
 button:hover {
-  background-color: #0056b3;
+  background: #005b90;
 }
 
-.mic-btn.recording {
-  background-color: #dc3545;
+/* Typing effect */
+.typing {
+  border-right: 2px solid black;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(40, end), blink 0.6s step-end infinite;
 }
 
-.user-msg, .bot-msg {
-  margin: 10px 0;
+@keyframes typing {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
-.speak {
-  margin-left: 10px;
-  cursor: pointer;
-  font-size: 1.2em;
+/* Bot is thinking or processing */
+.voice-wave {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.voice-wave div {
+  width: 6px;
+  height: 100%;
+  margin: 0 2px;
+  background: #0077b6;
+  animation: wave 1.2s infinite ease-in-out;
+}
+.voice-wave div:nth-child(2) { animation-delay: 0.2s; }
+.voice-wave div:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1.2); }
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* Section fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .transprint {
+    width: 95%;
+    padding: 20px;
+  }
+  .chatbox {
+    height: 300px;
+  }
+  button {
+    width: 100%;
+  }
 }

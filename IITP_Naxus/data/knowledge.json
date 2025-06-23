@@ -1,11 +1,58 @@
 {
-    "What is the fee structure?": "The fee structure for B.Tech programs at IIT Patna includes tuition fees, hostel fees, and other charges. Please visit the official website for the latest breakdown.",
-    "Where is the hostel located?": "The hostels are located within the IIT Patna campus in Bihta. There are separate hostels for boys and girls with modern facilities.",
-    "What courses are offered?": "IIT Patna offers B.Tech, M.Tech, M.Sc, and Ph.D programs in various disciplines like CSE, EEE, ME, CE, Chemical, Mathematics, and Physics.",
-    "What are hybrid courses?": "Hybrid courses at IIT Patna combine online and offline learning. These programs are designed to offer flexibility and industry collaboration.",
-    "How to reach IIT Patna?": "IIT Patna is located in Bihta, about 35 km from Patna Junction. You can reach by taxi, train to Bihta station, or direct bus service.",
-    "What is the campus area?": "IIT Patna’s permanent campus in Bihta spans over 500 acres with state-of-the-art infrastructure.",
-    "Who is the Director?": "The current Director of IIT Patna is Prof. T.N. Singh.",
-    "What is Moodle?": "Moodle is the learning management system used at IIT Patna. It is used by faculty and students for coursework, assignments, and materials."
-  }
-  
+  "What is the fee structure?": "The fee structure for B.Tech programs at IIT Patna includes tuition fees, hostel fees, and other charges. Please visit the official website for the latest breakdown.",
+  "Where is the hostel located?": "The hostels are located within the IIT Patna campus in Bihta. There are separate hostels for boys and girls with modern facilities.",
+  "What courses are offered?": "IIT Patna offers B.Tech, M.Tech, M.Sc, and Ph.D programs in various disciplines like CSE, EEE, ME, CE, Chemical, Mathematics, and Physics.",
+  "What are hybrid courses?": "Hybrid courses at IIT Patna combine online and offline learning. These programs are designed to offer flexibility and industry collaboration.",
+  "Tell me more about hybrid courses.": "Hybrid courses allow students to attend some classes online and some on campus. These programs include interactive online modules, lab sessions, and industry projects.",
+  "Are hybrid courses good?": "Yes! Hybrid courses at IIT Patna are designed with flexibility and real-world exposure. They help students manage time better and engage in remote collaboration.",
+  "Who can take hybrid courses?": "Hybrid courses are open to both regular and working professionals, depending on the program. They are ideal for those who want to balance education with other responsibilities.",
+  "Do hybrid courses offer placement?": "Yes, students enrolled in hybrid programs are eligible for placements at IIT Patna, subject to program rules and company requirements.",
+  "How are hybrid exams conducted?": "Exams in hybrid courses may be conducted both online and offline, depending on the course structure. Final evaluations often happen on campus.",
+  "Which departments offer hybrid courses?": "Departments like Computer Science, Electrical Engineering, and Mechanical Engineering offer hybrid formats for certain electives or certificate programs.",
+  "What is the duration of hybrid courses?": "The duration of hybrid courses depends on the type—short-term certifications may last a few weeks, while degree programs follow the regular academic calendar.",
+  "Is there hostel for hybrid course students?": "Yes, hybrid course students may be provided temporary hostel accommodation during their on-campus sessions, subject to availability and guidelines.",
+  "How to reach IIT Patna?": "IIT Patna is located in Bihta, about 35 km from Patna Junction. You can reach by taxi, train to Bihta station, or direct bus service.",
+  "What is the campus area?": "IIT Patna’s permanent campus in Bihta spans over 500 acres with state-of-the-art infrastructure.",
+  "Who is the Director?": "The current Director of IIT Patna is Prof. T.N. Singh.",
+  "What is Moodle?": "Moodle is the learning management system used at IIT Patna. It is used by faculty and students for coursework, assignments, and materials.",
+  "What is the library like?": "The Central Library at IIT Patna is well-equipped with books, journals, digital resources, and online databases to support academic and research work.",
+  "What is the placement record?": "IIT Patna has a strong placement record with top companies like Google, Microsoft, Amazon, and ISRO recruiting students from various branches.",
+  "Are there research opportunities?": "Yes, IIT Patna encourages research through dedicated labs, projects, collaborations, and Ph.D. programs across engineering, science, and humanities.",
+  "What are the hostel facilities?": "Hostels at IIT Patna have Wi-Fi, mess facilities, laundry services, recreation rooms, and 24/7 security.",
+  "Is Wi-Fi available on campus?": "Yes, the entire IIT Patna campus is Wi-Fi enabled, providing seamless internet access for students and faculty.",
+  "What are the sports facilities?": "IIT Patna offers a variety of sports facilities including a football ground, basketball court, cricket pitch, gym, and indoor games area.",
+  "What clubs are available?": "There are various student clubs at IIT Patna like Robotics Club, Coding Club, Drama Club, Photography Club, and Debate Society.",
+  "Are there internships?": "Yes, students are encouraged to take internships during summer and winter breaks. The Training and Placement Cell assists with opportunities.",
+  "What is the address of IIT Patna?": "Indian Institute of Technology Patna, Bihta, Bihar – 801106, India.",
+  "Is there a medical facility on campus?": "Yes, IIT Patna has a health center with qualified doctors and ambulance service available 24/7.",
+  "When was IIT Patna established?": "IIT Patna was established in 2008 and is one of the newer IITs, gaining rapid recognition for its academic and research excellence.",
+  "What is the student-teacher ratio?": "IIT Patna maintains a healthy student-teacher ratio to ensure personalized attention and quality education.",
+  "Is there transportation from Patna city?": "Yes, buses and shuttle services connect IIT Patna campus in Bihta to Patna city, railway station, and airport.",
+  "How to apply for admission?": "Admissions to B.Tech programs are through JEE Advanced, while M.Tech, M.Sc, and Ph.D have separate entrance and interview processes.",
+  "hey?": "Hey! How can I help you today?"
+  ,"hii?": "Hey! How can I help you today?"
+  ,"Hi, IITP Nexus": "Hey! How can I help you today?"
+  ,"What is a hybrid course at IIT Patna?": "A hybrid course at IIT Patna combines in-person learning with online modules. Students attend some classes on campus and others virtually.",
+  "Who is eligible for hybrid courses at IIT Patna?": "Eligibility varies by program. Generally, hybrid courses are open to regular students, working professionals, and industry-sponsored candidates.",
+  "Are hybrid courses full-time or part-time?": "Most hybrid courses are part-time or flexible, designed for learners who may have other responsibilities like work or travel constraints.",
+  "Do hybrid students get access to IIT campus?": "Yes, hybrid students are given campus access during designated offline sessions. This includes labs, libraries, and classrooms during the program duration.",
+  "Can hybrid students use IIT Patna's resources?": "Yes, during on-campus visits, hybrid students can access all necessary facilities like labs, Wi-Fi, library, and canteens.",
+  "Are hybrid students allowed to sit in placement drives?": "Yes, eligible hybrid course students are allowed to sit in campus placement drives, depending on the rules set by the Training and Placement Cell.",
+  "What documents are required to apply for a hybrid course?": "Typically, you need academic transcripts, ID proof, proof of work experience (if applicable), and any entrance test scores.",
+  "Is there hostel accommodation for hybrid students?": "Yes, short-term accommodation is arranged for hybrid students during their offline sessions, subject to availability.",
+  "Are hybrid course certificates recognized like regular degrees?": "Yes, certificates from hybrid courses at IIT Patna are recognized by UGC and equivalent to regular degree programs if issued under formal frameworks.",
+  "How are hybrid course exams conducted?": "Exams are usually conducted online for theory modules and offline during campus visits for lab assessments or viva.",
+  "What is the format of hybrid course lectures?": "Lectures are conducted live via video conferencing, with recordings and interactive sessions available through learning platforms like Moodle.",
+  "Can hybrid students interact with faculty?": "Yes, hybrid students regularly interact with faculty via online sessions, emails, discussion forums, and during offline visits.",
+  "Do hybrid courses have lab sessions?": "Yes, practical and lab-based subjects have dedicated offline sessions where students must attend physically on campus.",
+  "How are assignments submitted in hybrid courses?": "Assignments are submitted online via Moodle or similar platforms. Feedback is also provided digitally by faculty.",
+  "How many times does a hybrid student visit campus?": "This depends on the course. Most programs require 2–4 visits per semester for lab sessions, exams, or workshops.",
+  "Is there a support system for hybrid learners?": "Yes, hybrid students are supported by dedicated academic coordinators, IT teams, and course mentors for smooth learning.",
+  "Are scholarships available for hybrid students?": "Some hybrid programs may offer financial assistance or scholarships. Check specific course pages or contact the program office for details.",
+  "Can hybrid students participate in college events?": "Yes, hybrid students are welcome to join seminars, workshops, and cultural/technical fests when on campus.",
+  "How to apply for a hybrid course?": "You can apply online through IIT Patna’s official portal by selecting the hybrid course, uploading documents, and paying the application fee.",
+  "Which platforms are used in hybrid courses?": "IIT Patna uses platforms like Moodle, Microsoft Teams, and Zoom for content delivery, assessments, and interaction."
+ 
+
+
+}
