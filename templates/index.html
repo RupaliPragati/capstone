@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IITP Nexus</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #pageWrapper {
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .welcome-bg {
+      background-image: url('https://images.shiksha.com/mediadata/images/articles/1734514712phpKZ3g5h.jpeg');
+    }
+
+    .chat-bg {
+      background-image: url('https://www.nextiva.com/cdn-cgi/image/width=1280,format=auto/blog/wp-content/uploads/sites/10/2024/11/Chatbot-Call-Center.webp');
+    }
+
+    .complaint-bg {
+      background-image: url('https://www.shutterstock.com/image-illustration/complaints-concept-word-on-folder-260nw-269047922.jpg');
+    }
+
+    .transprint {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 90%;
+      width: 800px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+      margin: 20px;
+      text-align: center;
+    }
+
+    .chatbox {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      height: 50vh;
+      overflow-y: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 20px auto;
+    }
+
+    button {
+      padding: 12px 24px;
+      background: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="pageWrapper" class="welcome-bg">
+
+    <!-- Welcome Section -->
+    <div id="welcome" class="transprint" style="display: flex; flex-direction: column; align-items: center;">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Indian_Institute_of_Technology%2C_Patna.svg/1200px-Indian_Institute_of_Technology%2C_Patna.svg.png" 
+           alt="IIT Patna Logo" 
+           style="width: 150px; margin-bottom: 20px;" />
+      <h1>🛰️ Welcome to IITP Nexus</h1>
+      <p>👋 Hello! I'm your digital assistant for everything related to IIT Patna.<br>
+        Get info about courses, departments, events, and more.<br>
+        ✅ Submit complaints<br>
+        🌐 Switch languages<br>
+        📄 Ask from college docs<br>
+        Let's get started! 😊</p>
+      <button onclick="startChat()">Start</button>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="chat" class="transprint" style="display: none; flex-direction: column; align-items: center;">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712103.png" alt="Bot" style="width: 80px; margin-bottom: 10px;" />
+      
+      <label for="languageSelect">Choose Language:</label>
+      <select id="languageSelect" onchange="checkOtherLang()">
+        <option value="English">English</option>
+        <option value="hi">Hindi</option>
+        <option value="bn">Bengali</option>
+        <option value="ta">Tamil</option>
+        <option value="te">Telugu</option>
+        <option value="gu">Gujarati</option>
+        <option value="other">Other...</option>
+      </select>
+      <input id="customLang" style="display:none; padding:6px;" placeholder="Enter language..." />
+
+      <div class="chatbox" id="chatbox"></div>
+      <input id="userInput" placeholder="Type your message..." style="padding: 10px; width: 80%;" />
+      <div>
+        <button onclick="sendMessage()">Send</button>
+        <button onclick="startVoice()">🎤 Voice</button>
+        <button onclick="showComplaintForm()">📝 Complaint</button>
+        <button onclick="goBackToWelcome()">🔙 Back</button>
+      </div>
+    </div>
+
+    <!-- Complaint Section -->
+    <div id="complaintForm" class="transprint" style="display: none;">
+      <h2>Submit a Complaint</h2>
+      <textarea id="complaintText" rows="5" style="width: 100%; padding: 10px;" placeholder="Write your complaint here..."></textarea>
+      <br />
+      <button onclick="submitComplaint()">Submit</button>
+      <button onclick="hideComplaintForm()" style="background:#ccc;">Cancel</button>
+      <button onclick="goBackToWelcome()">🔙 Back</button>
+    </div>
+
+  </div>
+
+  <script>
+    function checkOtherLang() {
+      const langSel = document.getElementById("languageSelect").value;
+      document.getElementById("customLang").style.display = langSel === "other" ? "inline-block" : "none";
+    }
+
+    function getSelectedLanguage() {
+      const lang = document.getElementById("languageSelect").value;
+      if (lang === "other") {
+        const customLang = document.getElementById("customLang").value.trim();
+        return customLang || "English";
+      }
+      return lang;
+    }
+
+    function setPageBackground(id) {
+      const wrapper = document.getElementById("pageWrapper");
+      wrapper.className = ""; // Reset
+      wrapper.classList.add(id + "-bg");
+    }
+
+    function startChat() {
+      document.getElementById("welcome").style.display = "none";
+      document.getElementById("chat").style.display = "flex";
+      document.getElementById("complaintForm").style.display = "none";
+      setPageBackground("chat");
+    }
+
+    function showComplaintForm() {
+      document.getElementById("chat").style.display = "none";
+      document.getElementById("complaintForm").style.display = "flex";
+      setPageBackground("complaint");
+    }
+
+    function hideComplaintForm() {
+      document.getElementById("complaintForm").style.display = "none";
+      document.getElementById("chat").style.display = "flex";
+      setPageBackground("chat");
+    }
+
+    function goBackToWelcome() {
+      document.getElementById("welcome").style.display = "flex";
+      document.getElementById("chat").style.display = "none";
+      document.getElementById("complaintForm").style.display = "none";
+      setPageBackground("welcome");
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const lang = getSelectedLanguage();
+      const msg = input.value;
+      input.value = "";
+
+      if (!msg) return;
+      showMessage("You", msg);
+
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg, language: lang, voice_mode: false })  // 🛑 Voice off for typing
+      });
+
+      const data = await res.json();
+      showMessage("Bot", data.response);
+      // ❌ Do not speak here to avoid unnecessary voice replies
+    }
+
+    function showMessage(sender, text, isTyping = false) {
+      const box = document.getElementById("chatbox");
+      const div = document.createElement("div");
+      div.style.marginBottom = "10px";
+      div.innerHTML = `<b>${sender}:</b> ${text}`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function startVoice() {
+      const lang = getSelectedLanguage();
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      const chunks = [];
+
+      mediaRecorder.ondataavailable = e => chunks.push(e.data);
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        const form = new FormData();
+        form.append("audio", blob, "audio.webm");
+
+        const sttRes = await fetch("/stt", { method: "POST", body: form });
+        const sttData = await sttRes.json();
+        showMessage("You (Voice)", sttData.text);
+
+        const chatRes = await fetch("/chat", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: sttData.text, language: lang, voice_mode: true })  // ✅ Voice reply
+        });
+
+        const chatData = await chatRes.json();
+        showMessage("Bot", chatData.response);
+
+        if (chatData.voice) {
+          const audio = new Audio(chatData.voice);
+          audio.play();
+        }
+
+        playSoundEffect();
+      };
+
+      mediaRecorder.start();
+      setTimeout(() => mediaRecorder.stop(), 5000);
+    }
+
+    async function submitComplaint() {
+      const complaint = document.getElementById("complaintText").value.trim();
+      if (!complaint) return alert("Please write your complaint.");
+      const res = await fetch("/complaint", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ complaint })
+      });
+      const data = await res.json();
+      alert(data.message);
+      hideComplaintForm();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setPageBackground("welcome");
+    });
+
+    function playSoundEffect() {
+      const sound = document.getElementById("voice-sound");
+      sound.play();
+    }
+  </script>
+
+  <audio id="voice-sound" src="https://cdn.pixabay.com/download/audio/2022/08/19/audio_0f5d2ae85d.mp3?filename=message-voice-1-110842.mp3" preload="auto"></audio>
+</body>
+</html>
